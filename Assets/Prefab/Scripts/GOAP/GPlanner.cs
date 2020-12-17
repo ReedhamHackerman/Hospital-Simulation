@@ -76,5 +76,67 @@ public class GPlanner
         }
         return queue;
     }
+
+
+    private bool BuildGraph(Node parent,List<Node> leaves,List<GAction> usableActions,Dictionary<string,int> goal)
+    {
+        bool foundPath = false;
+        foreach (GAction action in usableActions)
+        {
+            if (action.IsAchievableGiven(parent.states))
+            {
+                Dictionary<string, int> currentStates = new Dictionary<string, int>(parent.states);
+                foreach (KeyValuePair<string,int> effect in action.effects)
+                {
+                    if (!currentStates.ContainsKey(effect.Key))
+                    {
+                        currentStates.Add(effect.Key, effect.Value);
+                    }
+                }
+                Node node = new Node(parent, parent.cost + action.cost, currentStates, action);
+                if(GoalAchieved(goal,currentStates))
+                {
+                    leaves.Add(node);
+                    foundPath = true;
+                }
+                else
+                {
+                    List<GAction> subset = ActionSubset(usableActions, action);
+                    bool found = BuildGraph(node, leaves, subset, goal); ;
+                    if (found)
+                    {
+                        foundPath = true;
+                    }
+                }
+            }
+        }
+        return foundPath;
+    }
+    
+    private bool GoalAchieved(Dictionary<string,int> goal,Dictionary<string,int> state)
+    {
+        foreach (KeyValuePair<string,int> g in goal)
+        {
+            if (!state.ContainsKey(g.Key))
+            {
+                return false;
+            }
+           
+        }
+        return true;
+    }
+    private List<GAction> ActionSubset(List<GAction> actions,GAction removeMe)
+    {
+        List<GAction> subset = new List<GAction>();
+        foreach (GAction action in actions)
+        {
+            if (!action.Equals(removeMe))
+            {
+                subset.Add(action);
+            }
+        }
+        return subset;
+     }
+    
 }
    
