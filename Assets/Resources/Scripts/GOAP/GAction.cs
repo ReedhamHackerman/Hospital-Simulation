@@ -22,11 +22,14 @@ public abstract class GAction : MonoBehaviour
 
 
     public WorldStates agentBeliefs;
+    public GInventory inventory;
+    public WorldStates beliefs;
     public bool running = false;
     public GAction()
     {
         preconditions = new Dictionary<string, int>();
         effects = new Dictionary<string, int>();
+        
     }
 
 
@@ -48,7 +51,8 @@ public abstract class GAction : MonoBehaviour
             }
         }
 
-
+        inventory = this.GetComponent<GAgent>().inventory;
+        beliefs = this.GetComponent<GAgent>().beliefs;
     }
     
 
