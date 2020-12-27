@@ -8,6 +8,7 @@ public class GoToWaitingRoom : GAction
     {
         return true;
     }
+
     public override bool PostPerform()
     {
         GWorld.Instance.GetWorld().ModifyState("Waiting", 1);
@@ -15,6 +16,4 @@ public class GoToWaitingRoom : GAction
         beliefs.ModifyState("atHospital", 1);
         return true;
     }
-
-  
 }

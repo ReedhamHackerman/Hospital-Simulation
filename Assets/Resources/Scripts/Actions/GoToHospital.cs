@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class GoToHospital : GAction
 {
-    public override bool PostPerform()
+    public override bool PrePerform()
     {
         return true;
     }
 
-    public override bool PrePerform()
+    public override bool PostPerform()
     {
         return true;
     }

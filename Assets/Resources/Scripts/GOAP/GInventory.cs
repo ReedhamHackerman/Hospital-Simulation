@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GInventory 
+public class GInventory
 {
     List<GameObject> items = new List<GameObject>();
-    public void addItems(GameObject i)
+
+    public void AddItem(GameObject i)
     {
         items.Add(i);
     }
+
     public GameObject FindItemWithTag(string tag)
     {
         foreach (GameObject i in items)
@@ -20,21 +22,17 @@ public class GInventory
         }
         return null;
     }
+
     public void RemoveItem(GameObject i)
     {
         int indexToRemove = -1;
-
         foreach (GameObject g in items)
         {
             indexToRemove++;
             if (g == i)
-            {
                 break;
-            }
-            if (indexToRemove>=-1)
-            {
-                items.RemoveAt(indexToRemove);
-            }
         }
+        if (indexToRemove >= -1)
+            items.RemoveAt(indexToRemove);
     }
 }

@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class UpdateWorld : MonoBehaviour
 {
     public Text states;
 
-    private void LateUpdate()
+    // Update is called once per frame
+    void LateUpdate()
     {
-        Dictionary<string, int> worldStates = GWorld.Instance.GetWorld().GetStates();
+        Dictionary<string, int> worldstates = GWorld.Instance.GetWorld().GetStates();
         states.text = "";
-        foreach (KeyValuePair<string,int> s in worldStates)
+        foreach (KeyValuePair<string, int> s in worldstates)
         {
-            //Debug.Log("WorldStates Count: "+worldStates.Count);
             states.text += s.Key + ", " + s.Value + "\n";
         }
     }
